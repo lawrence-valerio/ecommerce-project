@@ -1,0 +1,15 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  province_name: MyString
+  hst: MyString
+  gst: MyString
+  pst: MyString
+  user: one
+
+two:
+  province_name: MyString
+  hst: MyString
+  gst: MyString
+  pst: MyString
+  user: two
