@@ -1,46 +1,70 @@
 require 'json'
 require 'net/http'
 
-# CardType.destroy_all
-# Rarity.destroy_all
-# Type.destroy_all
-# Card.destroy_all
+CardType.destroy_all
+Rarity.destroy_all
+Type.destroy_all
+Card.destroy_all
+Province.destroy_all
 
-# url = 'https://api.pokemontcg.io/v2/cards'
-# uri = URI(url)
-# response = Net::HTTP.get(uri)
-# apiData = JSON.parse(response)
+url = 'https://api.pokemontcg.io/v2/cards'
+uri = URI(url)
+response = Net::HTTP.get(uri)
+apiData = JSON.parse(response)
 
-# apiData['data'].each do |card|
-#   rarity = Rarity.find_or_create_by(
-#     rarity_name: card['rarity']
-#   )
+apiData['data'].each do |card_single|
+  if card_single['rarity'].nil?
+    rarity = Rarity.find_or_create_by(
+      rarity_name: 'Not Available'
+    )
+  elsif rarity = Rarity.find_or_create_by(
+    rarity_name: card_single['rarity']
+  )
+  end
 
-#   card = Card.create(
-#     name: card['name'],
-#     level: card['level'],
-#     hp: card['hp'],
-#     rarity: rarity
-#   )
+  card = Card.create(
+    name: card_single['name'],
+    level: card_single['level'],
+    hp: card_single['hp'],
+    price: Faker::Commerce.price,
+    image: card_single['images']['large'],
+    rarity: rarity
+  )
 
-#   card['types'].each do |typeName|
-#     type = Type.find_or_Create(
-#       type_name: typeName
-#     )
+  card_single['types'].each do |type_name_single|
+    type = Type.find_or_create_by(
+      type_name: type_name_single
+    )
+    CardType.create(card: card, type: type)
+  end
+end
 
-#     cardTypes = CardType.create(type: type, card: card)
-#   end
-# end
+# getting provinces
+jsonFile = File.read('db/provinces.json')
+jsonData = JSON.parse(jsonFile)
 
-# #getting provinces
-# jsonFile = File.read('db/provinces.json')
-# jsonData = JSON.parse(jsonFile)
+jsonData.each do |_, object|
+  hst = 0
+  gst = 0
+  pst = 0
+  object['taxes'].each do |tax|
+    case tax['code']
+    when 'HST'
+      hst = tax['tax']
+    when 'GST'
+      gst = tax['tax']
+    when 'PST'
+      pst = tax['tax']
+    end
+  end
 
-# jsonData.each do |_, object|
-#   province = Province.create(
-#     province_name: object['name']
-#   )
-# end
+  province = Province.create(
+    province_name: object['name'],
+    hst: hst,
+    gst: gst,
+    pst: pst
+  )
+end
 
 # if Rails.env.development?
 #   AdminUser.create!(email: 'admin@example.com', password: 'password',

@@ -1,4 +1,4 @@
 class CardType < ApplicationRecord
-  belongs_to :Card
-  belongs_to :Type
+  belongs_to :card
+  belongs_to :type
 end
