@@ -12,15 +12,18 @@
       <li class="nav-item active">
         <%= link_to 'Cards', cards_path, :class => "nav-link" %>
       </li>
+      <li class="nav-item active">
+        <a href="#" class="nav-link">Account</a>
+      </li>
     </ul>
-    <form class="form-inline my-2 my-lg-0">
-        <select class="form-control mr-sm-2" aria-label="Default select example">
-          <option selected>Open this select menu</option>
-          <option value="1">One</option>
-          <option value="2">Two</option>
-          <option value="3">Three</option>
+    <form class="form-inline my-2 my-lg-0" action="/search">
+        <select class="form-control mr-sm-2" aria-label="Default select example" name="f">
+          <option value="All">All Types</option>
+          <%@global_types.each do |type|%>
+            <option value="<%=type.type_name%>"><%= type.type_name %></option>
+          <%end%>
         </select>
-      <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+      <input class="form-control mr-sm-2" type="text" placeholder="Search for a card" aria-label="Search" name="q">
       <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
     </form>
   </div>

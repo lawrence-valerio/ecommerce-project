@@ -1,9 +1,38 @@
-<div class="col-3 order-2" id="sticky-sidebar">
-  <div class="sticky-top">
-    <div class="nav flex-column">
-      <a href="#_" class="nav-link">link</a>
-      <a href="#_" class="nav-link">link1</a>
-      <a href="#_" class="nav-link">link2</a>
-    </div>
-  </div>
-</div>
+<%# <div class="nav flex-column">
+  <a href="#_" class="nav-link">link</a>
+  <a href="#_" class="nav-link">link1</a>
+  <a href="#_" class="nav-link">link2</a>
+</div> %>
+
+<h6 class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-muted">
+  <span>Types</span>
+</h6>
+<ul class="nav flex-column">
+  <li class="nav-item">
+    <%= link_to 'All', root_path, :class => "nav-link active" %>
+  </li>
+
+  <% @global_types.each do |type| %>
+    <li class="nav-item">
+      <%= link_to type.type_name, root_path, :class => "nav-link active" %>
+    </li>
+  <% end %>
+</ul>
+
+<h6 class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-muted">
+  <span>Rarities</span>
+  <a class="d-flex align-items-center text-muted" href="#">
+    <span data-feather="plus-circle"></span>
+  </a>
+</h6>
+<ul class="nav flex-column mb-2">
+  <li class="nav-item">
+    <%= link_to 'All', root_path, :class => "nav-link active" %>
+  </li>
+
+  <% @global_rarities.each do |rarity| %>
+    <li class="nav-item">
+      <%= link_to rarity.rarity_name, root_path, :class => "nav-link active" %>
+    </li>
+  <% end %>
+</ul>
