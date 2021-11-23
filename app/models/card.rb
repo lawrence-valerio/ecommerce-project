@@ -1,4 +1,5 @@
 class Card < ApplicationRecord
+  has_one_attached :image_uploaded
   has_many :card_types
   has_many :types, through: :card_types
 
@@ -9,4 +10,6 @@ class Card < ApplicationRecord
 
   validates :name, :price, :rarity, presence: true
   validates :price, numericality: true
+
+  paginates_per 15
 end
