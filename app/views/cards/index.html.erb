@@ -1,38 +1,41 @@
 <div class="album py-5 bg-light">
   <h1 class="text-center mb-5">All Cards</h1>
 
-  <div class="container">
-    <div class="row">
 
-      <%# REPEAT HERE %>
-      <% @cards.each do |card| %>
-        <div class="col-md-4">
-          <div class="card mb-5 box-shadow">
-            <%= link_to image_tag(card.image_thumbnail, :alt => card.name, class:"card-img-top"), card%>
-            <div class="card-body">
 
-              <div class="d-flex justify-content-between align-items-center">
-                <p class="font-weight-bold"><%= card.name %></p>
-                <p class="font-weight-bold">$<%= card.price %></p>
-              </div>
+    <div class="container">
+      <div class="row">
+
+        <%# REPEAT HERE %>
+        <% @cards.each do |card| %>
+          <div class="col-md-4">
+            <div class="card mb-5 box-shadow">
+              <%= link_to image_tag(card.image_thumbnail, :alt => card.name, class:"card-img-top"), card%>
+              <div class="card-body">
 
                 <div class="d-flex justify-content-between align-items-center">
-                    <div class="col-4">
-                      <%= link_to 'More info', card, :class => "btn btn-sm btn-outline-secondary" %>
-                    </div>
-                    <div class="col-4">
-                      <button type="button" class="btn btn-sm btn-outline-secondary">Add to cart</button>
-                    </div>
+                  <p class="font-weight-bold"><%= card.name %></p>
+                  <p class="font-weight-bold">$<%= card.price %></p>
                 </div>
 
+                  <div class="d-flex justify-content-between align-items-center">
+                      <div class="col">
+                        <%= link_to 'More info', card, :class => "btn btn-sm btn-outline-secondary" %>
+                      </div>
+                      <div class="col">
+                        <button type="button" class="btn btn-sm btn-outline-secondary float-right">Add to cart</button>
+                      </div>
+                  </div>
+
+              </div>
             </div>
           </div>
+        <% end %>
+        <div class="w-100 p-3 d-flex justify-content-center">
+          <%= paginate @cards %>
         </div>
-      <% end %>
-      <div class="w-100 p-3 d-flex justify-content-center">
-        <%= paginate @cards %>
-      </div>
 
+      </div>
     </div>
-  </div>
+
 </div>

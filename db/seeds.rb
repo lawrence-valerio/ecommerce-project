@@ -29,6 +29,7 @@ apiData['data'].each do |card_single|
     price: Faker::Commerce.price,
     image: card_single['images']['large'],
     image_thumbnail: card_single['images']['small'],
+    description: Faker::Food.description,
     rarity: rarity
   )
 
@@ -67,7 +68,7 @@ jsonData.each do |_, object|
   )
 end
 
-# if Rails.env.development?
-#   AdminUser.create!(email: 'admin@example.com', password: 'password',
-#                     password_confirmation: 'password')
-# end
+if Rails.env.development?
+  AdminUser.create!(email: 'admin@example.com', password: 'password',
+                    password_confirmation: 'password')
+end

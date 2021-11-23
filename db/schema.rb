@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_11_22_222341) do
+ActiveRecord::Schema.define(version: 2021_11_23_165820) do
 
   create_table "active_admin_comments", force: :cascade do |t|
     t.string "namespace"
@@ -96,6 +96,7 @@ ActiveRecord::Schema.define(version: 2021_11_22_222341) do
     t.datetime "updated_at", precision: 6, null: false
     t.string "image_thumbnail"
     t.string "image"
+    t.string "description"
     t.index ["rarity_id"], name: "index_cards_on_rarity_id"
   end
 
