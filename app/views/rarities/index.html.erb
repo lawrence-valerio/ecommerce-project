@@ -3,7 +3,7 @@
     <div class="container">
       <div class="card">
         <div class="card-body px-5">
-          <h1 class="text-center mb-5">All Types</h1>
+          <h1 class="text-center mb-5">All Rarities</h1>
 
           <div class="row">
             <table class="table table-hover">
@@ -14,11 +14,11 @@
               </tr>
             </thead>
             <tbody>
-              <% @types.each do |type| %>
+              <% @rarities.each do |rarity| %>
                 <tr>
-                  <td><%= type.type_name %></td>
-                  <td><%= type.cards.count %>
-                    <%= link_to "View Cards", type, class: 'btn btn-outline-primary float-right' %>
+                  <td><%= rarity.rarity_name %></td>
+                  <td><%= rarity.cards.count %>
+                    <%= link_to "View Cards", rarity, class: 'btn btn-outline-primary float-right' %>
                   </td>
                 </tr>
               <% end %>

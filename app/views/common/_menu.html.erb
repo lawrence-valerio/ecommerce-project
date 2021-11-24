@@ -1,4 +1,4 @@
-<nav class="navbar navbar-expand-lg navbar-light bg-light">
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
   <%= link_to 'PokéTraders', root_path, :class => "navbar-brand" %>
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
@@ -12,19 +12,38 @@
       <li class="nav-item active">
         <%= link_to 'Cards', cards_path, :class => "nav-link" %>
       </li>
-      <li class="nav-item active">
-        <a href="#" class="nav-link">Account</a>
+      <li>
+        <div class="container">
+          <form class="form-inline my-2 my-lg-0" action="/search">
+            <select class="form-control mr-sm-2" aria-label="Default select example" name="f">
+              <option value="All">All Types</option>
+              <%@global_types.each do |type|%>
+                <option value="<%=type.type_name%>"><%= type.type_name %></option>
+              <%end%>
+            </select>
+            <input class="form-control mr-sm-2" type="text" placeholder="Search for a card" aria-label="Search" name="q">
+            <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+          </form>
+        </div>
       </li>
     </ul>
-    <form class="form-inline my-2 my-lg-0" action="/search">
-        <select class="form-control mr-sm-2" aria-label="Default select example" name="f">
-          <option value="All">All Types</option>
-          <%@global_types.each do |type|%>
-            <option value="<%=type.type_name%>"><%= type.type_name %></option>
-          <%end%>
-        </select>
-      <input class="form-control mr-sm-2" type="text" placeholder="Search for a card" aria-label="Search" name="q">
-      <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
-    </form>
+
+    <ul class="navbar-nav ml-auto">
+      <li class="nav-item">
+        <a href="#!" class="nav-link navbar-link-2 waves-effect">
+          <span class="badge badge-pill red">1</span>
+          <i class="fas fa-shopping-cart pl-0"></i>
+        </a>
+      </li>
+      <li class="nav-item">
+        <a href="#!" class="nav-link waves-effect">
+          Sign in
+        </a>
+      </li>
+      <li class="nav-item pl-2 mb-2 mb-md-0">
+        <a href="#!" type="button"
+          class="btn btn-outline-info btn-md btn-rounded btn-navbar waves-effect waves-light">Sign up</a>
+      </li>
+    </ul>
   </div>
 </nav>

@@ -1,7 +1,9 @@
 class TypesController < ApplicationController
   def index
-    @Types = Type.includes(:card_types).all
+    @types = Type.includes(:card_types).all
   end
 
-  def show; end
+  def show
+    @type = Type.find(params[:id])
+  end
 end
