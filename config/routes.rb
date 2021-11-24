@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  devise_for :users
   root to: 'home#index'
   get 'search', to: 'cards#search'
   resources :cards, only: %i[index show]

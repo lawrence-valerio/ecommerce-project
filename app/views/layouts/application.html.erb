@@ -29,6 +29,10 @@
           </div>
         </div>
         <div class="col" id="main">
+          <% if notice%>
+            <%= render 'layouts/alerts' %>
+          <% end %>
+
           <%= yield %>
         </div>
       </div>
