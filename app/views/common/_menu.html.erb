@@ -36,13 +36,10 @@
         </a>
       </li>
       <li class="nav-item">
-        <a href="#!" class="nav-link waves-effect">
-          Sign in
-        </a>
+        <%= link_to 'Sign in', login_index_path, :class => "nav-link waves-effect" %>
       </li>
       <li class="nav-item pl-2 mb-2 mb-md-0">
-        <a href="#!" type="button"
-          class="btn btn-outline-info btn-md btn-rounded btn-navbar waves-effect waves-light">Sign up</a>
+        <%= link_to 'Sign up', register_index_path, :class => "btn btn-outline-info btn-md btn-rounded btn-navbar waves-effect waves-light" %>
       </li>
     </ul>
   </div>
