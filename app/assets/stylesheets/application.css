@@ -135,3 +135,13 @@ table {
     border-collapse: collapse;
     border-spacing: 0;
 }
+
+.jumbotron {
+    background: linear-gradient( rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.7)), url("https://static1.thegamerimages.com/wordpress/wp-content/uploads/2020/03/Holo-pokemon-cards-feature-1.jpg");
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    height: calc(100vh - 56px);
+    color: white;
+    margin-bottom: 0px !important;
+}
