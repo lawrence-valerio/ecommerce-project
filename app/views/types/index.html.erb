@@ -1,2 +1,35 @@
-<h1>Types#index</h1>
-<p>Find me in app/views/types/index.html.erb</p>
+<div class="album py-5 bg-light">
+
+    <div class="container">
+      <div class="card">
+        <div class="card-body px-5">
+          <h1 class="text-center mb-5">All Types</h1>
+
+          <div class="row">
+            <table class="table table-hover">
+            <thead class="thead-dark">
+              <tr>
+                <th scope="col">Rarity</th>
+                <th scope="col">Number of cards</th>
+              </tr>
+            </thead>
+            <tbody>
+              <% @types.each do |type| %>
+                <tr>
+                  <td><%= type.type_name %></td>
+                  <td><%= type.cards.count %>
+                    <%= link_to "View Cards", type, class: 'btn btn-outline-primary float-right' %>
+                  </td>
+                </tr>
+              <% end %>
+            </tbody>
+          </table>
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+
+  </h1>
+</div>

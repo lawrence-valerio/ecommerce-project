@@ -1,0 +1,72 @@
+<div class="album py-5 bg-light">
+  <div class="container">
+    <div class="row">
+    <div class="container">
+      <div class="row d-flex justify-content-center align-items-center h-100">
+        <div class="col-12 col-md-9 col-lg-7 col-xl-6">
+
+          <div class="card card-fluid">
+            <h6 class="card-header"> Account </h6>
+            <div class="card-body">
+
+            <%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put }) do |f| %>
+              <%= render "devise/shared/error_messages", resource: resource %>
+
+              <div class="form-outline mb-4">
+                <%= f.label :name, class:"form-label", for:"form7Example2cg" %>
+                <%= f.text_field :name, autofocus: true, class:"form-control form-control-lg", id:"form7Example2cg" %>
+              </div>
+
+              <div class="form-outline mb-4">
+                <%= f.label :email, class:"form-label" %>
+                <%= f.email_field :email, autofocus: true, autocomplete: "email", class:"form-control form-control-lg" %>
+              </div>
+
+              <% if devise_mapping.confirmable? && resource.pending_reconfirmation? %>
+                <div>Currently waiting confirmation for: <%= resource.unconfirmed_email %></div>
+              <% end %>
+
+              <div class="form-outline mb-4">
+                <%= f.label :password, class:"form-label" %> <i>(leave blank if you don't want to change it)</i>
+                <%= f.password_field :password, autocomplete: "new-password", class:"form-control form-control-lg" %>
+                <% if @minimum_password_length %>
+                  <em><%= @minimum_password_length %> characters minimum</em>
+                <% end %>
+              </div>
+
+              <div class="form-outline mb-4">
+                <%= f.label :password_confirmation, class:"form-label" %>
+                <%= f.password_field :password_confirmation, autocomplete: "new-password", class:"form-control form-control-lg" %>
+              </div>
+
+              <div class="form-outline mb-4">
+                <%= f.label :current_password, class:"form-label" %>
+                <%= f.password_field :current_password, autocomplete: "current-password", class:"form-control form-control-lg" %>
+              </div>
+
+              <div class="form-outline mb-4">
+                <%= f.label :address, class:"form-label", for:"form7Example7cg" %>
+                <%= f.text_field :address, id:"form7Example7cg", class:"form-control form-control-lg" %>
+              </div>
+
+              <div class="form-outline mb-4">
+                <%= f.label :province, class:"form-label", for:"form7Example4cg" %>
+                <%= f.select :province_id, Province.all.collect {|p| [ p.province_name, p.id ] }, { :include_blank => "Please select" }, class:"form-control form-control-lg", id:"form7Example4cg" %>
+              </div>
+
+              <hr class="form-outline mb-4">
+
+              <div class="form-outline mb-4">
+                <%= f.submit "Update", class:"btn btn-success btn-block btn-lg gradient-custom-4 text-body" %>
+              </div>
+            <% end %>
+
+
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    </div>
+  </div>
+</div>

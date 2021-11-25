@@ -1,0 +1,35 @@
+<div class="album py-5 bg-light">
+
+    <div class="container">
+      <div class="card">
+        <div class="card-body px-5">
+          <h1 class="text-center mb-5">All Rarities</h1>
+
+          <div class="row">
+            <table class="table table-hover">
+            <thead class="thead-dark">
+              <tr>
+                <th scope="col">Rarity</th>
+                <th scope="col">Number of cards</th>
+              </tr>
+            </thead>
+            <tbody>
+              <% @rarities.each do |rarity| %>
+                <tr>
+                  <td><%= rarity.rarity_name %></td>
+                  <td><%= rarity.cards.count %>
+                    <%= link_to "View Cards", rarity, class: 'btn btn-outline-primary float-right' %>
+                  </td>
+                </tr>
+              <% end %>
+            </tbody>
+          </table>
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+
+  </h1>
+</div>

@@ -1,0 +1,61 @@
+<div class="album py-5 bg-light">
+  <div class="container">
+    <div class="row">
+    <div class="container">
+      <div class="row d-flex justify-content-center align-items-center h-100">
+        <div class="col-12 col-md-9 col-lg-7 col-xl-6">
+          <div class="card" style="border-radius: 15px;">
+            <div class="card-body p-5">
+              <h2 class="text-uppercase text-center mb-5">Create an account</h2>
+
+              <%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
+                <%= render "devise/shared/error_messages", resource: resource %>
+
+                <div class="form-outline mb-4">
+                  <%= f.label :name, class:"form-label", for:"form4Example2cg" %>
+                  <%= f.text_field :name, autofocus: true, class:"form-control form-control-lg", id:"form4Example2cg" %>
+                </div>
+
+                <div class="form-outline mb-4">
+                  <%= f.label :email, class:"form-label", for:"form4Example3cg" %>
+                  <%= f.email_field :email, autofocus: true, autocomplete: "email", class:"form-control form-control-lg", id:"form4Example3cg" %>
+                </div>
+
+                <div class="form-outline mb-4">
+                  <%= f.label :password ,class:"form-label", for:"form4Example4cg" %>
+                  <% if @minimum_password_length %>
+                  <em>(<%= @minimum_password_length %> characters minimum)</em>
+                  <% end %>
+                  <%= f.password_field :password, autocomplete: "new-password", id:"form4Example4cg", class:"form-control form-control-lg" %>
+                </div>
+
+                <div class="form-outline mb-4">
+                  <%= f.label :password_confirmation, class:"form-label", for:"form5Example4cg" %>
+                  <%= f.password_field :password_confirmation, autocomplete: "new-password",id:"form5Example4cg", class:"form-control form-control-lg" %>
+                </div>
+
+                <div class="form-outline mb-4">
+                  <%= f.label :address, class:"form-label", for:"form5Example7cg" %>
+                  <%= f.text_field :address, id:"form5Example7cg", class:"form-control form-control-lg" %>
+                </div>
+
+                <div class="form-outline mb-4">
+                  <%= f.label :province, class:"form-label", for:"form6Example4cg" %>
+                  <%= f.select :province_id, Province.all.collect {|p| [ p.province_name, p.id ] }, { :include_blank => "Please select" }, class:"form-control form-control-lg", id:"form6Example4cg" %>
+                </div>
+
+                <div class="form-outline mb-4">
+                  <%= f.submit "Sign up", class:"btn btn-success btn-block btn-lg gradient-custom-4 text-body" %>
+                </div>
+              <% end %>
+
+              <%= render "devise/shared/links" %>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+    </div>
+  </div>
+</div>

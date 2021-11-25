@@ -18,20 +18,28 @@
 
   </head>
 
-  <body>
+  <body class="bg-light">
     <%=render partial: 'common/menu'%>
 
-    <div class="container-fluid">
-     <div class="row">
-        <div class="col-md-auto" id="sticky-sidebar">
-          <div class="sticky-top">
-    <%=render partial: 'common/sidebar'%>
+    <%if !current_page?(root_url)%>
+      <div class="container-fluid">
+      <div class="row">
+          <div class="col-md-auto bg-white" id="sticky-sidebar">
+            <div class="sticky-top">
+              <%=render partial: 'common/sidebar'%>
+            </div>
+          </div>
+          <div class="col" id="main">
+            <% if notice%>
+              <%= render 'layouts/alerts' %>
+            <% end %>
+
+            <%= yield %>
           </div>
         </div>
-        <div class="col" id="main">
-          <%= yield %>
-        </div>
       </div>
-    </div>
+    <%else%>
+      <%= yield %>
+    <% end %>
   </body>
 </html>
