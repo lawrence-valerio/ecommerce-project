@@ -35,6 +35,11 @@
                 </div>
 
                 <div class="form-outline mb-4">
+                  <%= f.label :address, class:"form-label", for:"form5Example7cg" %>
+                  <%= f.text_field :address, id:"form5Example7cg", class:"form-control form-control-lg" %>
+                </div>
+
+                <div class="form-outline mb-4">
                   <%= f.label :province, class:"form-label", for:"form6Example4cg" %>
                   <%= f.select :province_id, Province.all.collect {|p| [ p.province_name, p.id ] }, { :include_blank => "Please select" }, class:"form-control form-control-lg", id:"form6Example4cg" %>
                 </div>

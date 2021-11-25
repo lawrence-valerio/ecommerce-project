@@ -4,6 +4,7 @@ Rails.application.routes.draw do
   get 'search', to: 'cards#search'
   resources :cards, only: %i[index show]
   resources :types, only: %i[index show]
+  resources :users
   resources :login
   resources :register
   resources :rarities, only: %i[index show]
