@@ -1,2 +1,42 @@
-<h1>Types#show</h1>
-<p>Find me in app/views/types/show.html.erb</p>
+<div class="album py-5 bg-light">
+  <h1 class="text-center mb-5"><%= @type.type_name %></h1>
+
+
+
+    <div class="container">
+      <div class="row">
+
+        <%# REPEAT HERE %>
+        <% @filtered_cards.each do |card| %>
+          <div class="col-md-4">
+            <div class="card mb-5 box-shadow">
+              <%= link_to image_tag(card.image_thumbnail, :alt => card.name, class:"card-img-top"), card%>
+              <div class="card-body">
+
+                <div class="d-flex justify-content-between align-items-center">
+                  <p class="font-weight-bold"><%= card.name %></p>
+                  <p class="font-weight-bold">$<%= card.price %></p>
+                </div>
+
+                <div class="container-fluid py-2">
+                  <div class="row">
+                    <div class="col-sm">
+                      <%= link_to 'More info', card, :class => "btn btn-sm btn-outline-secondary w-100" %>
+                    </div>
+                  </div>
+                </div>
+
+              </div>
+            </div>
+          </div>
+        <% end %>
+
+
+        <div class="w-100 p-3 d-flex justify-content-center">
+          <%= paginate @filtered_cards %>
+        </div>
+
+      </div>
+    </div>
+
+</div>

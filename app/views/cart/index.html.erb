@@ -41,13 +41,8 @@
                       <%= hidden_field_tag('price', card.price) %>
                       <div class="d-flex justify-content-between align-items-center">
                         <div class="btn-group" role="group" aria-label="Second group">
-                            <% if session[:shopping_cart][card.id.to_s]['quantity'] == 1%>
-                              <button onclick="this.parentNode.querySelector('input[type=number]').stepDown()"
-                                  class="btn btn-dark quantity-change-dec" disabled>-</button>
-                            <% else %>
                               <button onclick="this.parentNode.querySelector('input[type=number]').stepDown()"
                                   class="btn btn-dark quantity-change-dec">-</button>
-                            <% end %>
                             <input readonly class="form-control text-center" min="1" name="quantity" value=<%= session[:shopping_cart][card.id.to_s]['quantity'] %> type="number">
                             <button onclick="this.parentNode.querySelector('input[type=number]').stepUp()"
                                 class="btn btn-dark quantity-change-inc">+</button>
