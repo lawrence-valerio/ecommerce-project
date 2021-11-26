@@ -41,7 +41,7 @@
                             <div class="btn-group" role="group" aria-label="Second group">
                                 <button onclick="this.parentNode.querySelector('input[type=number]').stepDown()"
                                     class="btn btn-dark">-</button>
-                                <input class="form-control text-center" min="0" name="quantity" value="1" type="number">
+                                <input class="form-control text-center" min="0" name="quantity" value=<%= session[:shopping_cart][card.id.to_s] %> type="number">
                                 <button onclick="this.parentNode.querySelector('input[type=number]').stepUp()"
                                     class="btn btn-dark">+</button>
                             </div>

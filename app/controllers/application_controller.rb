@@ -16,7 +16,6 @@ class ApplicationController < ActionController::Base
   end
 
   def cart
-    logger.debug("Adding #{session[:shopping_cart]} to cart.")
     id_array = session[:shopping_cart].keys
 
     Card.find(id_array)
