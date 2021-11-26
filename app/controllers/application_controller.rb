@@ -13,11 +13,18 @@ class ApplicationController < ActionController::Base
 
   def initialize_session
     session[:shopping_cart] ||= {}
+    session[:first_total] ||= []
   end
 
   def cart
     id_array = session[:shopping_cart].keys
+    temp_total = 0
+    session[:shopping_cart].each do |_key, value|
+      price = value['price'].to_f
+      temp_total += price
+    end
 
+    session[:first_total] = temp_total.round(2)
     Card.find(id_array)
   end
 

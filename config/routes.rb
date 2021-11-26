@@ -5,7 +5,7 @@ Rails.application.routes.draw do
   resources :cards, only: %i[index show]
   resources :types, only: %i[index show]
   resources :users
-  resources :cart, only: %i[index create destroy]
+  resources :cart, only: %i[index create destroy update]
   resources :rarities, only: %i[index show]
 
   scope '/checkout' do
