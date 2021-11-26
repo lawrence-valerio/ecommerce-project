@@ -12,11 +12,14 @@ class ApplicationController < ActionController::Base
   private
 
   def initialize_session
-    session[:shopping_cart] ||= []
+    session[:shopping_cart] ||= {}
   end
 
   def cart
-    Card.find(session[:shopping_cart])
+    logger.debug("Adding #{session[:shopping_cart]} to cart.")
+    id_array = session[:shopping_cart].keys
+
+    Card.find(id_array)
   end
 
   protected

@@ -31,20 +31,22 @@
                           <% end %>
                         </p>
                       </div>
-                      <div>
-                        <div class="def-number-input number-input safari_only mb-0 w-100">
-                          <button onclick="this.parentNode.querySelector('input[type=number]').stepDown()"
-                            class="minus"></button>
-                          <input class="quantity" min="0" name="quantity" value="1" type="number">
-                          <button onclick="this.parentNode.querySelector('input[type=number]').stepUp()"
-                            class="plus"></button>
-                        </div>
-                      </div>
                     </div>
                     <div class="d-flex justify-content-between align-items-center">
                       <p class="mb-3"><span><strong>$<%= card.price %></strong></span></p>
-                      <%= link_to 'Remove', cart_path(card), method: :delete, :class => "btn btn-danger btn-rounded mr-1"%>
+                      <%= link_to '', cart_path(card), method: :delete, :class => "fa fa-trash text-muted"%>
                     </div>
+
+                    <div class="d-flex justify-content-between align-items-center">
+                            <div class="btn-group" role="group" aria-label="Second group">
+                                <button onclick="this.parentNode.querySelector('input[type=number]').stepDown()"
+                                    class="btn btn-dark">-</button>
+                                <input class="form-control text-center" min="0" name="quantity" value="1" type="number">
+                                <button onclick="this.parentNode.querySelector('input[type=number]').stepUp()"
+                                    class="btn btn-dark">+</button>
+                            </div>
+                    </div>
+
                   </div>
                 </div>
               </div>
@@ -62,11 +64,11 @@
       <div class="card mb-3">
         <div class="card-body">
 
-          <h5 class="mb-3">Total</h5>
+          <h5 class="mb-3">Summary</h5>
 
           <ul class="list-group list-group-flush">
             <li class="list-group-item d-flex justify-content-between align-items-center border-0 px-0 pb-0">
-              Total Amount Before Taxes
+              Items <%= cart.size %>
               <span>$0</span>
             </li>
             <li>
@@ -74,13 +76,13 @@
             </li>
             <li class="list-group-item d-flex justify-content-between align-items-center border-0 px-0 mb-3">
               <div>
-                <strong>Total Amount After Taxes</strong>
+                <strong>Total Price</strong>
               </div>
               <span><strong>$0</strong></span>
             </li>
           </ul>
 
-          <button type="button" class="btn btn-primary btn-block waves-effect waves-light">go to checkout</button>
+          <button type="button" class="btn btn-dark btn-block waves-effect waves-light">go to checkout</button>
 
         </div>
       </div>

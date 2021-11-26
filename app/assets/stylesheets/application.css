@@ -136,6 +136,22 @@ table {
     border-spacing: 0;
 }
 
+
+/* Chrome, Safari, Edge, Opera */
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+
+/* Firefox */
+
+input[type=number] {
+    -moz-appearance: textfield;
+}
+
 .jumbotron {
     background: linear-gradient( rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.7)), url("https://static1.thegamerimages.com/wordpress/wp-content/uploads/2020/03/Holo-pokemon-cards-feature-1.jpg");
     background-size: cover;
