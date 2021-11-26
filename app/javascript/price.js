@@ -36,7 +36,6 @@ document.addEventListener("turbolinks:load", function() {
             priceElement.innerText = (current_price - parseFloat(base_price)).toFixed(2)
         } else {
             priceElement.innerText = parseFloat(base_price)
-            element.disabled = true;
         }
 
         changeTotal()
@@ -48,10 +47,6 @@ document.addEventListener("turbolinks:load", function() {
         priceElement = element.parentElement.parentElement.parentElement.parentElement.childNodes[3].childNodes[1].childNodes[0].childNodes[1]
         decrease_btn_element = element.parentElement.childNodes[1]
         quantity = parseInt(element.parentElement.childNodes[3].value);
-
-        if (quantity != 1) {
-            decrease_btn_element.disabled = false
-        }
 
         current_price = parseFloat(priceElement.innerText)
 
