@@ -18,10 +18,13 @@
                         <h2 class="mt-5">
                             $<%= @card.price %>
                         </h2>
-                        <button class="btn btn-dark btn-rounded mr-1" data-toggle="tooltip" title="" data-original-title="Add to cart">
-                            <i class="fa fa-shopping-cart"></i>
-                        </button>
-                        <button class="btn btn-primary btn-rounded">Buy Now</button>
+
+                        <div class="btn-group">
+                            <%= form_tag cart_index_path, :method => 'post' do %>
+                                <%= hidden_field_tag(:card_id, @card.id) %>
+                                <%= button_tag 'Add to cart', :class => "btn btn-dark btn-rounded mr-1"%>
+                            <% end %>
+                        </div>
                     </div>
                     <div class="col-lg-12 col-md-12 col-sm-12">
                         <h3 class="box-title mt-5">Extra Information</h3>

@@ -1,11 +1,22 @@
 class ApplicationController < ActionController::Base
   before_action :configure_permitted_parameters, if: :devise_controller?
-  before_action :set_variables
+  before_action :set_variables, :initialize_session
+  helper_method :cart
 
   def set_variables
     @global_types = Type.includes(:card_types).all
     @global_rarities = Rarity.all
     @global_provinces = Province.all
+  end
+
+  private
+
+  def initialize_session
+    session[:shopping_cart] ||= []
+  end
+
+  def cart
+    Card.find(session[:shopping_cart])
   end
 
   protected
