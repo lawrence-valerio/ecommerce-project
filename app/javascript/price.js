@@ -4,6 +4,11 @@ document.addEventListener("turbolinks:load", function() {
     var buttons_dec = document.getElementsByClassName('quantity-change-dec');
     var item_prices = document.getElementsByClassName('item-price');
     var first_total = document.getElementById('first-total');
+    var hst = document.getElementById("HST")
+    var pst = document.getElementById("PST")
+    var gst = document.getElementById("GST")
+    var final_total_element = document.getElementById("final-total")
+
 
     for (var i = 0; i < buttons_inc.length; i++) {
 
@@ -57,6 +62,7 @@ document.addEventListener("turbolinks:load", function() {
 
     function changeTotal() {
         var total = 0.0;
+        var final_total = 0.0
 
         for (var i = 0; i < item_prices.length; i++) {
 
@@ -66,6 +72,56 @@ document.addEventListener("turbolinks:load", function() {
             })(i);
         }
 
+        final_total += calculateGST(total)
+        final_total += calculatePST(total)
+        final_total += calculateHST(total)
+        calculateFinalTotal(final_total, total)
         first_total.innerText = total.toFixed(2)
+    }
+
+    function calculateHST(total) {
+        calculated_hst = 0.0;
+
+        if (hst != null) {
+            var base_hst = document.getElementById("hst_hidden").value
+            calculated_hst = total * parseFloat(base_hst)
+            hst.innerText = calculated_hst.toFixed(2)
+
+        }
+
+        return parseFloat(calculated_hst.toFixed(2))
+    }
+
+    function calculatePST(total) {
+        calculated_pst = 0.0;
+
+        if (pst != null) {
+            var base_pst = document.getElementById("pst_hidden").value
+            calculated_pst = total * parseFloat(base_pst)
+            pst.innerText = calculated_pst.toFixed(2)
+
+        }
+        return parseFloat(calculated_pst.toFixed(2))
+    }
+
+    function calculateGST(total) {
+        calculated_gst = 0.0;
+
+        if (gst != null) {
+            var base_gst = document.getElementById("gst_hidden").value
+            calculated_gst = total * parseFloat(base_gst)
+            gst.innerText = calculated_gst.toFixed(2)
+
+        }
+        return parseFloat(calculated_gst.toFixed(2))
+    }
+
+    function calculateFinalTotal(final_total, total) {
+
+        if (final_total_element != null) {
+            new_total = parseFloat(final_total.toFixed(2)) + parseFloat(total.toFixed(2))
+
+            final_total_element.innerText = new_total.toFixed(2)
+        }
     }
 });

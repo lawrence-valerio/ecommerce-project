@@ -14,6 +14,10 @@ class ApplicationController < ActionController::Base
   def initialize_session
     session[:shopping_cart] ||= {}
     session[:first_total] ||= []
+    session[:gst] ||= []
+    session[:hst] ||= []
+    session[:pst] ||= []
+    session[:final_total] ||= []
   end
 
   def cart
@@ -24,7 +28,15 @@ class ApplicationController < ActionController::Base
       temp_total += price
     end
 
-    session[:first_total] = temp_total.round(2)
+    unless current_user.nil?
+      @user = User.find(current_user.id)
+      session[:first_total] = temp_total.round(2)
+      session[:gst] = (temp_total * @user.province.gst).round(2)
+      session[:hst] = (temp_total * @user.province.hst).round(2)
+      session[:pst] = (temp_total * @user.province.pst).round(2)
+      session[:final_total] = (session[:first_total] + session[:gst] + session[:hst] + session[:pst]).round(2)
+    end
+
     Card.find(id_array)
   end
 
