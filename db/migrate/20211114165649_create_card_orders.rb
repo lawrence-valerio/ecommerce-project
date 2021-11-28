@@ -4,7 +4,7 @@ class CreateCardOrders < ActiveRecord::Migration[6.1]
       t.references :order, null: false, foreign_key: true
       t.references :card, null: false, foreign_key: true
       t.integer :quantity
-      t.decimal :price
+      t.integer :price
 
       t.timestamps
     end

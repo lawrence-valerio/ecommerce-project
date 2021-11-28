@@ -34,10 +34,10 @@ class ApplicationController < ActionController::Base
 
     unless current_user.nil?
       @user = User.find(current_user.id)
-      session[:gst] = (temp_total * @user.province.gst).round(3)
-      session[:hst] = (temp_total * @user.province.hst).round(3)
-      session[:pst] = (temp_total * @user.province.pst).round(3)
-      session[:final_total] = (session[:first_total] + session[:gst] + session[:hst] + session[:pst]).round(3)
+      session[:gst] = (temp_total * @user.province.gst).round(2)
+      session[:hst] = (temp_total * @user.province.hst).round(2)
+      session[:pst] = (temp_total * @user.province.pst).round(2)
+      session[:final_total] = (session[:first_total] + session[:gst] + session[:hst] + session[:pst])
     end
 
     Card.find(id_array)

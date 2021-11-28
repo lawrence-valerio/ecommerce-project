@@ -38,14 +38,14 @@ class CartController < ApplicationController
     end
 
     session[:first_total_cents] = temp_total * 100
-    session[:first_total] = temp_total.round(3)
+    session[:first_total] = temp_total
 
     unless current_user.nil?
       @user = User.find(current_user.id)
-      session[:gst] = (temp_total * @user.province.gst).round(3)
-      session[:hst] = (temp_total * @user.province.hst).round(3)
-      session[:pst] = (temp_total * @user.province.pst).round(3)
-      session[:final_total] = (session[:first_total] + session[:gst] + session[:hst] + session[:pst]).round(3)
+      session[:gst] = (temp_total * @user.province.gst).round(2)
+      session[:hst] = (temp_total * @user.province.hst).round(2)
+      session[:pst] = (temp_total * @user.province.pst).round(2)
+      session[:final_total] = (session[:first_total] + session[:gst] + session[:hst] + session[:pst])
     end
   end
 end

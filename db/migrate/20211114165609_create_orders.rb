@@ -3,8 +3,10 @@ class CreateOrders < ActiveRecord::Migration[6.1]
     create_table :orders do |t|
       t.references :user, null: false, foreign_key: true
       t.references :status, null: false, foreign_key: true
-      t.decimal :order_total
-      t.decimal :taxes
+      t.integer :order_total
+      t.decimal :hst
+      t.decimal :gst
+      t.decimal :pst
 
       t.timestamps
     end
