@@ -1,0 +1,153 @@
+<section class="mt-5">
+
+  <div class="row">
+
+    <div class="col-lg-8">
+
+      <div class="card wish-list mb-3">
+        <div class="card-body">
+
+          <h5 class="mb-4">Cart (<span><%= cart.size %></span> items)</h5>
+          <div id="card-container">
+          <% if cart.present? %>
+            <% cart.each do |card| %>
+              <div class="row mb-4">
+                <div class="col-md-5 col-lg-3 col-xl-3">
+                  <div class="view zoom overlay z-depth-1 rounded mb-3 mb-md-0">
+                    <img class="img-fluid w-100"
+                      src=<%= card.image_thumbnail %> alt=<%= card.name %>>
+                  </div>
+                </div>
+                <div class="col-md-7 col-lg-9 col-xl-9">
+                  <div>
+                    <div class="d-flex justify-content-between">
+                      <div>
+                        <h5><%= card.name %></h5>
+                        <p class="mb-3 text-muted text-uppercase small">Rarity: <%= card.rarity.rarity_name %></p>
+                        <p class="mb-3 text-muted text-uppercase small">Type:
+                          <%card.types.each do |type|%>
+                            <%= type.type_name %>
+                          <% end %>
+                        </p>
+                      </div>
+                    </div>
+                    <div class="d-flex justify-content-between align-items-center">
+                      <p class="mb-3"><span><b>$</b><strong class="item-price"><%= '%.2f' % session[:shopping_cart][card.id.to_s]['price'] %></strong></span></p>
+                      <%= link_to '', cart_path(card), method: :delete, :class => "fa fa-trash text-muted"%>
+                    </div>
+
+                    <%= form_tag cart_path(card), :method => 'put' do %>
+                      <input name="card_id" type="hidden" value=<%= card.id %> />
+                      <input name="card_id" type="hidden" value=<%= card.price %> />
+
+                      <div class="d-flex justify-content-between align-items-center">
+                        <div class="btn-group" role="group" aria-label="Second group">
+                              <button onclick="this.parentNode.querySelector('input[type=number]').stepDown()"
+                                  class="btn btn-dark quantity-change-dec">-</button>
+                            <input readonly class="form-control text-center" min="1" name="quantity" value=<%= session[:shopping_cart][card.id.to_s]['quantity'] %> type="number">
+                            <button onclick="this.parentNode.querySelector('input[type=number]').stepUp()"
+                                class="btn btn-dark quantity-change-inc">+</button>
+                        </div>
+                      </div>
+                    <% end %>
+
+                  </div>
+                </div>
+              </div>
+              <hr class="mb-4">
+
+            <% end %>
+          <% end %>
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+    <div class="col-lg-4">
+
+      <div class="card mb-3">
+        <div class="card-body">
+          <% if user_signed_in? %>
+            <h5 class="mb-3">Summary</h5>
+
+            <ul class="list-group list-group-flush">
+              <li class="list-group-item d-flex justify-content-between align-items-center border-0 px-0 pb-0">
+                Items <%= cart.size %>
+                <span >$<a id="first-total"><%= '%.2f' % session[:first_total] %></a></span>
+              </li>
+              <li>
+                <hr class="mb-1">
+              </li>
+              <% if @user.province.hst != 0.0 %>
+              <li>
+                <%= hidden_field_tag('hst_hidden', @user.province.hst) %>
+              </li>
+                <li class="list-group-item d-flex justify-content-between align-items-center border-0 px-0" >
+                  <div>
+                    <strong>HST</strong>
+                  </div>
+                  <span><b>$</b><strong id="HST"><%= session[:hst] %></strong></span>
+                </li>
+              <% end %>
+
+              <% if @user.province.gst != 0.0 %>
+                <li>
+                  <%= hidden_field_tag('gst_hidden', @user.province.gst) %>
+                </li>
+                <li class="list-group-item d-flex justify-content-between align-items-center border-0 px-0" >
+                  <div>
+                    <strong>GST</strong>
+                  </div>
+                  <span><b>$</b><strong id="GST"><%= '%.2f' % session[:gst] %></strong></span>
+                </li>
+              <% end %>
+
+              <% if @user.province.pst != 0.0 %>
+              <li>
+
+                <%= hidden_field_tag('pst_hidden', @user.province.pst) %>
+              </li>
+                <li class="list-group-item d-flex justify-content-between align-items-center border-0 px-0" >
+                  <div>
+                    <strong>PST</strong>
+                  </div>
+                  <span><b>$</b><strong id="PST"><%= '%.2f' % session[:pst] %></strong></span>
+                </li>
+              <% end %>
+
+              <li class="list-group-item d-flex justify-content-between align-items-center border-0 px-0 mb-3">
+                <div>
+                  <strong>Total Price</strong>
+                </div>
+                <span><b>$</b><strong id="final-total"><%= '%.2f' % session[:final_total] %></strong></span>
+              </li>
+            </ul>
+
+            <%= form_tag checkout_create_path, :method => 'post', :remote => true do %>
+              <%= button_tag 'go to checkout', class:"btn btn-dark btn-block waves-effect waves-light" %>
+            <% end %>
+          <% else %>
+            <h5 class="mb-3">Summary</h5>
+
+            <ul class="list-group list-group-flush">
+              <li class="list-group-item d-flex justify-content-between align-items-center border-0 px-0 pb-0">
+                Items <%= cart.size %>
+                <span >$<a id="first-total"><%= '%.2f' % session[:first_total] %></a></span>
+              </li>
+              <li>
+                <hr class="mb-1">
+              </li>
+            </ul>
+
+            <h5 class="my-3 text-center">Tax will be calculated after you sign in</h5>
+            <%= link_to 'Sign in', new_user_session_path, :class => "btn btn-dark btn-block waves-effect waves-light" %>
+          <% end %>
+
+        </div>
+      </div>
+
+    </div>
+
+  </div>
+</section>

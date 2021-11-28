@@ -13,35 +13,40 @@ response = Net::HTTP.get(uri)
 apiData = JSON.parse(response)
 
 apiData['data'].each do |card_single|
-  if card_single['rarity'].nil?
-    rarity = Rarity.find_or_create_by(
-      rarity_name: 'Not Available'
-    )
-  elsif rarity = Rarity.find_or_create_by(
-    rarity_name: card_single['rarity']
-  )
-  end
+  rarity = if card_single['rarity'].nil?
+             Rarity.find_or_create_by(
+               rarity_name: 'Not Available'
+             )
+           else Rarity.find_or_create_by(
+             rarity_name: card_single['rarity']
+           )
+           end
 
   card = Card.create(
     name: card_single['name'],
     level: card_single['level'],
     hp: card_single['hp'],
-    price: Faker::Commerce.price,
+    price: Faker::Number.between(from: 2000, to: 50_000),
     image: card_single['images']['large'],
     image_thumbnail: card_single['images']['small'],
     description: Faker::Food.description,
     rarity: rarity
   )
 
-  card_single['types'].each do |type_name_single|
-    type = Type.find_or_create_by(
-      type_name: type_name_single
+  if card_single['types'].nil?
+    Type.find_or_create_by(
+      type_name: 'Not Available'
     )
-    CardType.create(card: card, type: type)
+  else
+    card_single['types'].each do |type_name_single|
+      type = Type.find_or_create_by(
+        type_name: type_name_single
+      )
+      CardType.create(card: card, type: type)
+    end
   end
 end
 
-# getting provinces
 jsonFile = File.read('db/provinces.json')
 jsonData = JSON.parse(jsonFile)
 
@@ -67,6 +72,18 @@ jsonData.each do |_, object|
     pst: pst
   )
 end
+
+Status.create(
+  order_status: 'pending'
+)
+
+Status.create(
+  order_status: 'complete'
+)
+
+Status.create(
+  order_status: 'shipped'
+)
 
 if Rails.env.development?
   AdminUser.create!(email: 'admin@example.com', password: 'password',

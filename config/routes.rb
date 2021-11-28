@@ -4,9 +4,9 @@ Rails.application.routes.draw do
   get 'search', to: 'cards#search'
   resources :cards, only: %i[index show]
   resources :types, only: %i[index show]
+  resources :orders, only: %i[index show]
   resources :users
-  resources :login
-  resources :register
+  resources :cart, only: %i[index create destroy update]
   resources :rarities, only: %i[index show]
 
   scope '/checkout' do

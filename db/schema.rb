@@ -70,7 +70,7 @@ ActiveRecord::Schema.define(version: 2021_11_25_143709) do
     t.integer "order_id", null: false
     t.integer "card_id", null: false
     t.integer "quantity"
-    t.decimal "price"
+    t.integer "price"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["card_id"], name: "index_card_orders_on_card_id"
@@ -90,7 +90,7 @@ ActiveRecord::Schema.define(version: 2021_11_25_143709) do
     t.string "name"
     t.integer "level"
     t.integer "hp"
-    t.decimal "price"
+    t.integer "price"
     t.integer "rarity_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
@@ -104,7 +104,10 @@ ActiveRecord::Schema.define(version: 2021_11_25_143709) do
     t.integer "user_id", null: false
     t.integer "status_id", null: false
     t.decimal "order_total"
-    t.decimal "taxes"
+    t.decimal "hst"
+    t.decimal "gst"
+    t.decimal "pst"
+    t.string "stripe_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["status_id"], name: "index_orders_on_status_id"

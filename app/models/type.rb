@@ -3,4 +3,6 @@ class Type < ApplicationRecord
   has_many :cards, through: :card_types
 
   validates :type_name, presence: true
+
+  paginates_per 16
 end

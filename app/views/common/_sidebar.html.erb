@@ -1,32 +1,34 @@
-<h6 class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-muted">
+<a class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-muted title-pointer" data-toggle="collapse" href="#collapseType">
   <span>Types</span>
-</h6>
-<ul class="nav flex-column">
-  <li class="nav-item">
-    <%= link_to 'All', types_path, :class => "nav-link active" %>
-  </li>
+</a>
+<div class="collapse" id="collapseType">
+  <ul class="nav flex-column">
 
-  <% @global_types.each do |type| %>
-    <li class="nav-item">
-      <%= link_to type.type_name, type, :class => "nav-link active" %>
-    </li>
-  <% end %>
-</ul>
+      <li class="nav-item">
+        <%= link_to 'All', types_path, :class => "nav-link active" %>
+      </li>
 
-<h6 class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-muted">
+      <% @global_types.each do |type| %>
+        <li class="nav-item">
+          <%= link_to type.type_name, type, :class => "nav-link active" %>
+        </li>
+      <% end %>
+  </ul>
+  </div>
+
+<a class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-muted title-pointer" data-toggle="collapse" href="#collapseRarity">
   <span>Rarities</span>
-  <a class="d-flex align-items-center text-muted" href="#">
-    <span data-feather="plus-circle"></span>
-  </a>
-</h6>
-<ul class="nav flex-column mb-2">
-  <li class="nav-item">
-    <%= link_to 'All', rarities_path, :class => "nav-link active" %>
-  </li>
+</a>
+<div class="collapse" id="collapseRarity">
+  <ul class="nav flex-column mb-2">
+      <li class="nav-item">
+        <%= link_to 'All', rarities_path, :class => "nav-link active" %>
+      </li>
 
-  <% @global_rarities.each do |rarity| %>
-    <li class="nav-item">
-      <%= link_to rarity.rarity_name, rarity, :class => "nav-link active" %>
-    </li>
-  <% end %>
-</ul>
+      <% @global_rarities.each do |rarity| %>
+        <li class="nav-item">
+          <%= link_to rarity.rarity_name, rarity, :class => "nav-link active" %>
+        </li>
+      <% end %>
+  </ul>
+</div>

@@ -1,8 +1,5 @@
 class CardsController < ApplicationController
   def index
-    # @cards = Card.includes(:card_types).all
-
-    # with pagination
     @cards = Card.includes(:card_types).page params[:page]
   end
 

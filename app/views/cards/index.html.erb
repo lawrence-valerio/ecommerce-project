@@ -15,19 +15,18 @@
 
                 <div class="d-flex justify-content-between align-items-center">
                   <p class="font-weight-bold"><%= card.name %></p>
-                  <p class="font-weight-bold">$<%= card.price %></p>
+                  <p class="font-weight-bold">$<%= card.price / 100.0 %></p>
+                </div>
+
+
+                <div class="d-flex justify-content-between align-items-center">
+                  <p><a class="font-weight-bold">Sales:</a> <%= CardOrder.where(card: card).size %></p>
                 </div>
 
                 <div class="container-fluid py-2">
                   <div class="row">
                     <div class="col-sm">
                       <%= link_to 'More info', card, :class => "btn btn-sm btn-outline-secondary w-100" %>
-                    </div>
-                    <div class="col-sm">
-                    <%= form_tag checkout_create_path, :method => 'post', :remote => true do %>
-                      <%= hidden_field_tag(:card_id, card.id) %>
-                      <%= button_tag 'Add to cart', :class => "btn btn-sm btn-outline-secondary w-100" %>
-                    <% end %>
                     </div>
                   </div>
                 </div>
