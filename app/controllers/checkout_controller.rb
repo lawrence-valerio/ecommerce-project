@@ -5,21 +5,37 @@ class CheckoutController < ApplicationController
       nil
     end
 
+    @user = User.find(current_user.id)
+
     @lineItems = []
 
     session[:shopping_cart].each do |key, value|
       card = Card.find(key)
       @lineItems << { name: card.name,
                       description: card.description,
-                      unit_amount_decimal: card.price.to_f,
+                      amount: card.price.to_i,
                       currency: 'cad',
                       quantity: value['quantity'].to_i }
     end
 
+    check_tax(@user.province.gst)
+    check_tax(@user.province.pst)
+    check_tax(@user.province.hst)
+
+    Stripe::TaxRate.create(
+      display_name: 'Sales Tax',
+      inclusive: false,
+      percentage: 7.25,
+      country: 'US',
+      state: 'CA',
+      jurisdiction: 'US - CA',
+      description: 'CA Sales Tax'
+    )
+
     @stripe_session = Stripe::Checkout::Session.create(
       # went to stripe API, looked up sessions, figured it all out..
       payment_method_types: ['card'],
-      success_url: checkout_success_url,
+      success_url: checkout_success_url + '?session_id={CHECKOUT_SESSION_ID}',
       cancel_url: checkout_cancel_url,
       line_items: @lineItems
     )
@@ -32,12 +48,27 @@ class CheckoutController < ApplicationController
   def success
     # stripe success_url +"?session_id={CHECKOUT_SESSION_ID}"
     # when stripe redirects back to server... it will append this session_id  through GET params!
-    # @session = Stripe::Checkout::Session.retrieve(params[:session_id])
-    # @payment_intent = Stripe::PaymentIntent.retrieve(@session.payment_intent)
+    @session = Stripe::Checkout::Session.retrieve(params[:session_id])
+    @payment_intent = Stripe::PaymentIntent.retrieve(@session.payment_intent)
     # found in the docs!
   end
 
   def cancel
     # something went wrong :(
+  end
+
+  private
+
+  def check_tax(tax)
+    puts(session[:first_total_cents] * tax)
+    if tax > 0.0
+      @lineItems << {
+        name: 'GST',
+        description: 'Goods and Services Tax',
+        amount: (session[:first_total_cents] * tax).round.to_i,
+        currency: 'cad',
+        quantity: 1
+      }
+    end
   end
 end

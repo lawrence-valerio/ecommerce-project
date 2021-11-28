@@ -38,9 +38,9 @@ document.addEventListener("turbolinks:load", function() {
 
         current_price = parseFloat(priceElement.innerText)
         if (quantity != 1) {
-            priceElement.innerText = (current_price - parseFloat(base_price)).toFixed(2)
+            priceElement.innerText = (current_price - (parseInt(base_price) / 100)).toFixed(2)
         } else {
-            priceElement.innerText = parseFloat(base_price)
+            priceElement.innerText = parseInt(base_price) / 100
         }
 
         changeTotal()
@@ -55,7 +55,7 @@ document.addEventListener("turbolinks:load", function() {
 
         current_price = parseFloat(priceElement.innerText)
 
-        priceElement.innerText = (current_price + parseFloat(base_price)).toFixed(2)
+        priceElement.innerText = (current_price + (parseInt(base_price) / 100.0)).toFixed(2)
 
         changeTotal()
     }
@@ -68,7 +68,7 @@ document.addEventListener("turbolinks:load", function() {
 
             (function(index) {
 
-                total = parseFloat(total) + parseFloat(item_prices[index].innerText)
+                total = (parseFloat(total) + parseFloat(item_prices[index].innerText)).toFixed(2)
             })(i);
         }
 
@@ -76,7 +76,7 @@ document.addEventListener("turbolinks:load", function() {
         final_total += calculatePST(total)
         final_total += calculateHST(total)
         calculateFinalTotal(final_total, total)
-        first_total.innerText = total.toFixed(2)
+        first_total.innerText = total
     }
 
     function calculateHST(total) {
@@ -113,13 +113,13 @@ document.addEventListener("turbolinks:load", function() {
             gst.innerText = calculated_gst.toFixed(2)
 
         }
-        return parseFloat(calculated_gst.toFixed(2))
+        return parseFloat(calculated_gst)
     }
 
     function calculateFinalTotal(final_total, total) {
 
         if (final_total_element != null) {
-            new_total = parseFloat(final_total.toFixed(2)) + parseFloat(total.toFixed(2))
+            new_total = parseFloat(final_total) + parseFloat(total)
 
             final_total_element.innerText = new_total.toFixed(2)
         }
