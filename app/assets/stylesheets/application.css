@@ -165,3 +165,7 @@ input[type=number] {
 .title-pointer {
     cursor: pointer;
 }
+
+.vh-100 {
+    min-height: 100vh;
+}

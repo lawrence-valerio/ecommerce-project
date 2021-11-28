@@ -37,8 +37,9 @@
                     </div>
 
                     <%= form_tag cart_path(card), :method => 'put' do %>
-                      <%= hidden_field_tag(:card_id, card.id) %>
-                      <%= hidden_field_tag('price', card.price) %>
+                      <input name="card_id" type="hidden" value=<%= card.id %> />
+                      <input name="card_id" type="hidden" value=<%= card.price %> />
+
                       <div class="d-flex justify-content-between align-items-center">
                         <div class="btn-group" role="group" aria-label="Second group">
                               <button onclick="this.parentNode.querySelector('input[type=number]').stepDown()"
@@ -79,7 +80,9 @@
                 <hr class="mb-1">
               </li>
               <% if @user.province.hst != 0.0 %>
+              <li>
                 <%= hidden_field_tag('hst_hidden', @user.province.hst) %>
+              </li>
                 <li class="list-group-item d-flex justify-content-between align-items-center border-0 px-0" >
                   <div>
                     <strong>HST</strong>
@@ -89,7 +92,9 @@
               <% end %>
 
               <% if @user.province.gst != 0.0 %>
-                <%= hidden_field_tag('gst_hidden', @user.province.gst) %>
+                <li>
+                  <%= hidden_field_tag('gst_hidden', @user.province.gst) %>
+                </li>
                 <li class="list-group-item d-flex justify-content-between align-items-center border-0 px-0" >
                   <div>
                     <strong>GST</strong>
@@ -99,7 +104,10 @@
               <% end %>
 
               <% if @user.province.pst != 0.0 %>
+              <li>
+
                 <%= hidden_field_tag('pst_hidden', @user.province.pst) %>
+              </li>
                 <li class="list-group-item d-flex justify-content-between align-items-center border-0 px-0" >
                   <div>
                     <strong>PST</strong>

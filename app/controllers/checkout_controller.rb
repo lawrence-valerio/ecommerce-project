@@ -57,12 +57,18 @@ class CheckoutController < ApplicationController
   end
 
   def success
+    @subtotal = 0
+
     status = Status.where(order_status: 'complete').first
 
     @order = Order.find(params[:id])
     @order.status = status
     @order.save
     @user = User.find(current_user.id)
+
+    @card_order = CardOrder.where(order: @order)
+
+    calculate_total
 
     session[:shopping_cart] = {}
     session[:first_total] = []
@@ -79,6 +85,15 @@ class CheckoutController < ApplicationController
   end
 
   private
+
+  def calculate_total
+    temp_total = 0
+    @card_order.each do |card|
+      card_total = (card.card.price / 100.0) * card.quantity
+      temp_total += card_total
+    end
+    @subtotal = temp_total
+  end
 
   def check_tax(tax)
     puts(session[:first_total_cents] * tax)
