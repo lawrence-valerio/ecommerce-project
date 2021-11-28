@@ -22,31 +22,13 @@ class CheckoutController < ApplicationController
     check_tax(@user.province.pst)
     check_tax(@user.province.hst)
 
-    @stripe_session = Stripe::Checkout::Session.create(
-      payment_method_types: ['card'],
-      success_url: checkout_success_url + '?session_id={CHECKOUT_SESSION_ID}',
-      cancel_url: checkout_cancel_url,
-      line_items: @lineItems
-    )
-
-    respond_to do |format|
-      format.js
-    end
-  end
-
-  def success
-    @session = Stripe::Checkout::Session.retrieve(params[:session_id])
-    @payment_intent = Stripe::PaymentIntent.retrieve(@session.payment_intent)
-
-    user = User.find(current_user.id)
-    status = Status.find_or_create_by(
-      order_status: 'complete'
-    )
+    # CREATING THE ORDER FOR THE DATABASE
+    status = Status.where(order_status: 'pending').first
 
     order = Order.create(
-      order_total: @session.amount_total,
+      order_total: session[:final_total],
       status: status,
-      user: user,
+      user: @user,
       hst: session[:hst],
       gst: session[:gst],
       pst: session[:pst]
@@ -60,6 +42,28 @@ class CheckoutController < ApplicationController
                        price: (card.price.to_i * value['quantity'].to_i) / 100)
     end
 
+    @stripe_session = Stripe::Checkout::Session.create(
+      payment_method_types: ['card'],
+      success_url: checkout_success_url + '?session_id={CHECKOUT_SESSION_ID}' + "&id=#{order.id}",
+      cancel_url: checkout_cancel_url + "?id=#{order.id}",
+      line_items: @lineItems
+    )
+
+    order.stripe_id = @stripe_session.id
+
+    respond_to do |format|
+      format.js
+    end
+  end
+
+  def success
+    status = Status.where(order_status: 'complete').first
+
+    @order = Order.find(params[:id])
+    @order.status = status
+    @order.save
+    @user = User.find(current_user.id)
+
     session[:shopping_cart] = {}
     session[:first_total] = []
     session[:gst] = []
@@ -69,7 +73,10 @@ class CheckoutController < ApplicationController
     session[:first_total_cents] = []
   end
 
-  def cancel; end
+  def cancel
+    order = Order.find(params[:id])
+    order.destroy
+  end
 
   private
 

@@ -103,10 +103,11 @@ ActiveRecord::Schema.define(version: 2021_11_25_143709) do
   create_table "orders", force: :cascade do |t|
     t.integer "user_id", null: false
     t.integer "status_id", null: false
-    t.integer "order_total"
+    t.decimal "order_total"
     t.decimal "hst"
     t.decimal "gst"
     t.decimal "pst"
+    t.string "stripe_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["status_id"], name: "index_orders_on_status_id"

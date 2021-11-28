@@ -73,6 +73,18 @@ jsonData.each do |_, object|
   )
 end
 
+Status.create(
+  order_status: 'pending'
+)
+
+Status.create(
+  order_status: 'complete'
+)
+
+Status.create(
+  order_status: 'shipped'
+)
+
 if Rails.env.development?
   AdminUser.create!(email: 'admin@example.com', password: 'password',
                     password_confirmation: 'password')
