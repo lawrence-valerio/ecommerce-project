@@ -16,6 +16,10 @@
                   <p class="font-weight-bold">$<%= card.price %></p>
                 </div>
 
+                <div class="d-flex justify-content-between align-items-center">
+                  <p><a class="font-weight-bold">Sales:</a> <%= CardOrder.where(card: card).size %></p>
+                </div>
+
                 <div class="d-flex justify-content-between align-items-center row">
                     <div class="col">
                       <%= link_to 'More info', card, :class => "btn btn-sm btn-outline-secondary" %>

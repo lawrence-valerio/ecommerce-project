@@ -22,7 +22,7 @@
               <%end%>
             </select>
             <input class="form-control mr-sm-2" type="text" placeholder="Search for a card" aria-label="Search" name="q">
-            <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+            <button class="btn btn-outline-light my-2 my-sm-0" type="submit">Search</button>
           </form>
         </div>
       </li>
@@ -48,7 +48,7 @@
         </li>
 
         <li class="nav-item pl-2 mb-2 mb-md-0">
-          <%= link_to 'Sign out', destroy_user_session_path, method: :delete, :class => "btn btn-outline-info btn-md btn-rounded btn-navbar waves-effect waves-light" %>
+          <%= link_to 'Sign out', destroy_user_session_path, method: :delete, :class => "btn btn-outline-light btn-md btn-rounded btn-navbar waves-effect waves-light" %>
         </li>
       <% else %>
         <li class="nav-item">
@@ -56,7 +56,7 @@
         </li>
 
         <li class="nav-item pl-2 mb-2 mb-md-0">
-          <%= link_to 'Sign up', new_user_registration_path, :class => "btn btn-outline-info btn-md btn-rounded btn-navbar waves-effect waves-light" %>
+          <%= link_to 'Sign up', new_user_registration_path, :class => "btn btn-outline-light btn-md btn-rounded btn-navbar waves-effect waves-light" %>
         </li>
       <% end %>
     </ul>
