@@ -9,7 +9,28 @@
                 <div class="row">
                     <div class="col-lg-5 col-md-5 col-sm-6">
                         <div class="white-box text-center">
+                        <% if @card.image_uploaded.present? %>
+                            <div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
+                                <div class="carousel-inner">
+                                    <div class="carousel-item active">
+                                        <img src=<%= @card.image %> class="img-fluid">
+                                    </div>
+                                    <div class="carousel-item">
+                                        <%= image_tag @card.image_uploaded, class:"img-fluid w-100"%>
+                                    </div>
+                                </div>
+                                <a class="carousel-control-prev" href="#carouselExampleControls" role="button" data-slide="prev">
+                                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                                    <span class="sr-only">Previous</span>
+                                </a>
+                                <a class="carousel-control-next" href="#carouselExampleControls" role="button" data-slide="next">
+                                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                                    <span class="sr-only">Next</span>
+                                </a>
+                            </div>
+                        <%else%>
                           <img src=<%= @card.image %> class="img-fluid">
+                        <% end %>
                         </div>
                     </div>
                     <div class="col-lg-7 col-md-7 col-sm-6">
