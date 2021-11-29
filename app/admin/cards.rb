@@ -12,7 +12,7 @@ ActiveAdmin.register Card do
 
     # let's add this piece:
     f.inputs do
-      f.input :image_uploaded, as: :file, hint: f.object.image.present? ? image_tag(f.object.image) : ''
+      f.input :image_uploaded, as: :file, hint: f.object.image_uploaded.present? ? image_tag(f.object.image_uploaded) : ''
     end
     f.actions # adds the 'Submit' and 'Cancel' buttons
   end

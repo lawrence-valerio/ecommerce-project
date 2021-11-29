@@ -1,7 +1,6 @@
 <div class="album py-5 bg-light">
+
   <h1 class="text-center mb-5"><%= @rarity.rarity_name %></h1>
-
-
 
     <div class="container">
       <div class="row">
@@ -16,6 +15,10 @@
                 <div class="d-flex justify-content-between align-items-center">
                   <p class="font-weight-bold"><%= card.name %></p>
                   <p class="font-weight-bold">$<%= card.price / 100 %></p>
+                </div>
+
+                <div class="d-flex justify-content-between align-items-center">
+                  <p><a class="font-weight-bold">Sales:</a> <%= CardOrder.where(card: card).size %></p>
                 </div>
 
                 <div class="container-fluid py-2">
